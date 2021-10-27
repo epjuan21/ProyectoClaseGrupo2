@@ -6,3 +6,4 @@
 
 Instalar Node Modules en la carpeta del servidor
 
+Ubicarse en la carpeta **server** y ejecutar  `npm install`
