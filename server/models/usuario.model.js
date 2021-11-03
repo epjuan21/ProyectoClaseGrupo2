@@ -7,9 +7,11 @@ const UsuarioSchema = new Schema({
         required: true,
         max: 100
     },
-    pass: {
+    password: {
         type: String,
         required: true,
         max: 128
     },
 })
+
+module.exports = mongoose.model('Usuarios', UsuarioSchema);

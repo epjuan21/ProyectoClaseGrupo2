@@ -3,11 +3,10 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 
 exports.login = function(req, res, next){
-    let hashedpass = crypto.createHash('sha512').update(req.body.pass).digest('hex');
-
+    let hashedpass = crypto.createHash('sha512').update(req.body.password).digest('hex');
     Usuario.findOne({
         usuario: req.body.usuario,
-        pass: hashedpass
+        password: hashedpass
     }, function(err, usuario) {
         let response = {
             token: null
