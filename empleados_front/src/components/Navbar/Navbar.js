@@ -1,5 +1,9 @@
 import React from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, DropdownButton, Nav, Navbar, Dropdown, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import './Navbar.css';
+// import Logo from '../Img/Logo.png';
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -8,27 +12,31 @@ export default class NavBar extends React.Component {
     }
     render() {
         return (
-
-            <Navbar bg="light" expand="lg">
+            <Navbar fixed="top" id="navbar" bg="primary" variant="dark">
                 <Container>
-                    <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                    <img className="img-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/React.svg/1200px-React.svg.png" alt="Logo"/>
+                    <Navbar.Brand href="#home">Grupo 2 Mision Tic <span id="usuario-sub-brand"></span></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="#home">Home</Nav.Link>
-                            <Nav.Link href="#link">Link</Nav.Link>
-                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                            </NavDropdown>
+                            {/* <Nav.Link href="#home">Home</Nav.Link>
+                            <Nav.Link href="#link">Link</Nav.Link> */}
                         </Nav>
+                        <DropdownButton id="dropdown-basic-button" title="Usuario">
+                            <Dropdown.Header id="dropdown-header">
+                                <Row>
+                                    <FontAwesomeIcon icon={faUserCircle} />
+                                </Row>
+                                <Row>
+                                    Usuario
+                                </Row>
+                            </Dropdown.Header>
+                            <Dropdown.Divider />
+                            <Dropdown.Item href="#/action-1">Cerrar Sesión</Dropdown.Item>
+                        </DropdownButton>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-
         );
     }
 }

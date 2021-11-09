@@ -16,15 +16,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(auth);
 
 // Mongo Connection
 database.mongoConnect();
 
 // Router
-app.use('/empleados', empleadosRouter);
 app.use('/usuarios', usuariosRouter)
-
+app.use(auth);
+app.use('/empleados', empleadosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
