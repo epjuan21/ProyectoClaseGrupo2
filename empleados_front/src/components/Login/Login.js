@@ -3,11 +3,18 @@ import axios from "axios";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { APIHOST as host } from '../../app.json';
 import './Login.css'
+import { isNull } from 'util';
+import Cookies from 'universal-cookie';
+import { calculaExtraccionSesion } from "../helper/helpers";
+import Loading from "../Loading/Loading";
+
+const cookies = new Cookies();
 
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
+            loading: false,
             usuario: '',
             pass: ''
          }
@@ -15,24 +22,40 @@ export default class Login extends React.Component {
 
     iniciarSesion() {
 
+        this.setState({
+            loading: true
+        });
+
         axios.post(`${host}/usuarios/login`, {
             usuario: this.state.usuario,
-            pass: this.state.pass,
+            password: this.state.pass,
         })
         .then(( response ) => {
-            console.log(response)
+            if ( isNull(response.data.token) ) {
+                alert('Usuario y/o contraseña invalidos')
+            } else {
+                cookies.set('_s', response.data.token, {
+                    path: '/',
+                    expires: calculaExtraccionSesion(),
+                })
+            }
+            this.setState({
+                loading: false
+            });
         } )
         .catch((err) => {
             console.log(err)
-        })
-
-        alert(`Usuario: ${this.state.usuario} - Password: ${this.state.pass}`)        
+            this.setState({
+                loading: false
+            });
+        }) 
     }
 
     render() {
         return (
 
             <Container id="login-container">
+                <Loading show={ this.state.loading } />
                 <Row>
                     <Col>
                         <Row>
